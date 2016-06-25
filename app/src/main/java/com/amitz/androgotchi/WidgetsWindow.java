@@ -43,7 +43,7 @@ public class WidgetsWindow extends MultiWindow {
 				// to show off the data sending framework
 				Bundle data = new Bundle();
 				data.putString("changedText", changedText);
-				sendData(id, MultiWindow.class, DEFAULT_ID, DATA_CHANGED_TEXT,
+				sendData(id, MultiWindow.class, DEFAULT_ID, DATA_CHANGED_TEXT, //TODO change DEFAULT_ID to proper ID
 						data);
 			}
 		});

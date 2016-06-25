@@ -35,7 +35,7 @@ public class SimpleWindow extends StandOutWindow {
 
 			@Override
 			public void onClick(View v) {
-				Window window = getWindow(0);
+				Window window = getWindow(SIMPLE_WINDOW_ID);
 				window.setBackgroundColor(Color.parseColor(String.format("#%02X%02X%02X%02X", a & 0xff, r & 0xff, g & 0xff, b & 0xff)));
 				window.edit().setPosition(x, y);
 				window.edit().commit();

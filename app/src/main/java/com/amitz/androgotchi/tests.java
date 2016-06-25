@@ -1,11 +1,12 @@
 package com.amitz.androgotchi;
 
-
 import android.content.Context;
 
 import wei.mark.standout.StandOutWindow;
+import wei.mark.standout.ui.Window;
 
-public class tests {
+
+public class tests{
     private static Context context;
 
     public static void setContext(Context c){
@@ -19,9 +20,16 @@ public class tests {
 
         // show a MultiWindow, SimpleWindow
 
-        StandOutWindow.show(context, SimpleWindow.class, StandOutWindow.DEFAULT_ID);
-        StandOutWindow.show(context, MultiWindow.class, StandOutWindow.DEFAULT_ID);
+        //StandOutWindow.show(context, SimpleWindow.class, StandOutWindow.DEFAULT_ID);
+        //StandOutWindow.show(context, MultiWindow.class, StandOutWindow.DEFAULT_ID);
+        //StandOutWindow.show(context, WidgetsWindow.class, StandOutWindow.DEFAULT_ID);
+
         StandOutWindow.show(context, WidgetsWindow.class, StandOutWindow.DEFAULT_ID);
+
+
+
+
+
     }
 
     public static void mor(){
@@ -31,4 +39,6 @@ public class tests {
     public static void petter(){
 
     }
+
+
 }

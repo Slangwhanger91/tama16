@@ -11,6 +11,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -49,9 +50,14 @@ public abstract class StandOutWindow extends Service {
 	static final String TAG = "StandOutWindow";
 
 	/**
-	 * StandOut window id: You may use this sample id for your first window.
+	 * StandOut window id.
 	 */
-	public static final int DEFAULT_ID = 0;
+	public static final int DEFAULT_ID = 0,
+			WIDGETS_WINDOW_ID = 1,
+			SIMPLE_WINDOW_ID = 2,
+			MULTI_WINDOW_ID = 3,
+			MOST_BASIC_WINDOW_ID = 4;
+
 
 	/**
 	 * Special StandOut window id: You may NOT use this id for any windows.
@@ -97,6 +103,49 @@ public abstract class StandOutWindow extends Service {
 	 * {@link #getHiddenNotification(int)}.
 	 */
 	public static final String ACTION_HIDE = "HIDE";
+
+	/**
+	 * Static method to re-position a window
+	 * NOTE THAT THE ID MUST BE OF AN EXISTING WINDOW OR BAD SHIT WILL HAPPEN
+	 */
+	public static void setPosition(int id, Class cls, int x, int y){
+		Window window = sWindowCache.getCache(id, cls);
+		window.edit().setPosition(x, y);
+		window.edit().commit();
+	}
+
+	/**
+	 * Static method to move a window left & right on the X axis:
+	 * - increment to move right.
+	 * - decrement to move left.
+	 * NOTE THAT THE ID MUST BE OF AN EXISTING WINDOW OR BAD SHIT WILL HAPPEN
+	 */
+	public static void setIncrementX(int id, Class cls, int x){
+		Window window = sWindowCache.getCache(id, cls);
+		//Log.i("AMIT", "x before: "+x+", window x: " + window.getLayoutParams().x);
+		x = window.getLayoutParams().x + x;
+		int y = window.getLayoutParams().y;
+		//Log.i("AMIT", "window x after: "+x);
+
+		window.edit().setPosition(x, y);
+		window.edit().commit();
+	}
+
+	/**
+	 * Static method to move a window up & down on the Y axis:
+	 * - increment to move down.
+	 * - decrement to move up.
+	 * NOTE THAT THE ID MUST BE OF AN EXISTING WINDOW OR BAD SHIT WILL HAPPEN
+	 */
+	public static void setIncrementY(int id, Class cls, int y){
+		Window window = sWindowCache.getCache(id, cls);
+		y = window.getLayoutParams().y + y;
+		int x = window.getLayoutParams().x;
+
+		window.edit().setPosition(x, y);
+		window.edit().commit();
+	}
+
 
 	/**
 	 * Show a new window corresponding to the id, or restore a previously hidden
@@ -328,13 +377,18 @@ public abstract class StandOutWindow extends Service {
 	}
 
 	// internal map of ids to shown/hidden views
-	static WindowCache sWindowCache;
+	public static WindowCache sWindowCache;
 	static Window sFocusedWindow;
 
 	// static constructors
 	static {
 		sWindowCache = new WindowCache();
 		sFocusedWindow = null;
+	}
+
+	@Override
+	public ComponentName startService(Intent service) {
+		return super.startService(service);
 	}
 
 	// internal system services

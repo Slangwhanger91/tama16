@@ -37,7 +37,6 @@ import wei.mark.standout.ui.Window;
  * 
  */
 public class MultiWindow extends StandOutWindow {
-
 	@Override
 	public String getAppName() {
 		return "MultiWindow";

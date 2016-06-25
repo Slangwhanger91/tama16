@@ -8,7 +8,6 @@ import wei.mark.standout.StandOutWindow;
 import wei.mark.standout.ui.Window;
 
 public class MostBasicWindow extends StandOutWindow {
-
 	@Override
 	public String getAppName() {
 		return "MostBasicWindow";
